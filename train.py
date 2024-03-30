@@ -6,7 +6,7 @@ Created on Wed Apr  1 19:06:43 2020
 """
 
 import ModelWrapper as mp
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
+from keras.callbacks import ModelCheckpoint, EarlyStopping
 import tensorflow as tf
 import glob
 import pickle
