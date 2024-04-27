@@ -16,7 +16,7 @@ def Frame_Extractor(
     frames_ext=".jpg",
 ):
     """
-    A method which extracts the frames from the guven video. It can ex
+    A method which extracts the frames from the given video. It can ex
 
     Parameters
     ----------
@@ -269,20 +269,18 @@ def Fit_Preprocessing(path, frames_ext):
 
 
 if __name__ == "__main__":
-    # dataset_path = "Datasets/AvenueDataset/"
-    # vid_paths = [dataset_path + 'training_videos']
-    # for vid_path in vid_paths:
-    #     print('\n\nExtracting Frame from the videos, Path: {0}\n'.format(vid_path))
-    #     frames_dir = dataset_path + "training_images"
-    #     Vid2Frame(vid_path, frames_dir, ext_vid='.avi', frames_ext='.tif')
-    # print('\n-------- Frames are Extracted from All Videos Succesfully! --------\n')
 
-    # path = frames_dir
+    dataset_path = "Datasets/AvenueDataset/"
+    vid_paths = [dataset_path + "training_videos", dataset_path + "testing_videos"]
+    frame_paths = ['Datasets/UCSDped1/Train', 'Datasets/UCSDped2/Train', 'Datasets/UCSDped1/Test', 'Datasets/UCSDped2/Test']
 
-    paths = ['Datasets/UCSDped1/Train', 'Datasets/UCSDped2/Train', 'Datasets/UCSDped1/Test', 'Datasets/UCSDped2/Test', 'Datasets/AvenueDataset/training_images', 'Datasets/AvenueDataset/testing_images']
+    for vid_path in vid_paths:
+        print('\n\nExtracting frames from the video, Path: {0}\n'.format(vid_path))
+        frames_dir = dataset_path + (vid_path[(vid_path.rfind("/") + 1):])[:-7] + "_images"
+        Vid2Frame(vid_path, frames_dir, ext_vid='.avi', frames_ext='.tif')
+        frame_paths.append(frames_dir)
 
-    # paths = ["Datasets/AvenueDataset/training_images"]
-    for path in paths:
+    for path in frame_paths:
         img_list = Fit_Preprocessing(path, frames_ext=".tif")
-        name = "Test_{0}.npy".format(path.split("/")[1])
-        img_arr = GlobalNormalization(img_list, name, path="Test_Data", save_data=True)
+        name = "Test_{0}.npy".format(path.split("/")[1]) if "test" in path.lower() else "Train_{0}.npy".format(path.split("/")[1])
+        img_arr = GlobalNormalization(img_list, name, path="Test_Data" if "test" in path.lower() else "Train_Data", save_data=True)

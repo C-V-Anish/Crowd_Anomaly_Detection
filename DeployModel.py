@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr  2 20:56:50 2020
-
-@author: danish
-"""
 import cv2
 import ModelWrapper as mp
 from keras.models import load_model
@@ -18,7 +12,6 @@ def WriteInfo(err, text, norm_count, anom_count):
             text, norm_count, norm_count + anom_count, anom_count, err
         )
     )
-
 
 def get_model(model_path):
     print("\n\n------- Loading Model: {0} ! -------".format(model_path.split("/")[-1]))
@@ -230,21 +223,21 @@ def DeploySystem(
 
 if __name__ == "__main__":
 
-    # model_path = 'checkpoints/Train_UCSDped2_Model.h5'
-    model_path = "checkpoints/Train_AvenueDataset_Model.h5"
+    model_path = 'checkpoints/Train_UCSDped2_Model.keras'
+    # model_path = "checkpoints/Train_AvenueDataset_Model.keras"
 
-    # vid_path = './AvenueDataset/testing_videos/05.avi' #5,9
-    vid_path = "./AnomalyEvent.mp4"
+    vid_path = 'Datasets/UCSDped2/Test' #5,9
+    # vid_path = "./AnomalyEvent.mp4"
 
     frames_ext = ".tif"
-    frames_dir = "Datasets/UCSDped2/Test"
+    frames_dir = "Datasets/AvenueDataset/testing_images"
 
     npy_file = "./Test_Data/Test_UCSDped2.npy"
 
     # possible serving types
     serving_types = ["real-time", "video", "frames", "npy"]
     # Serving of Model
-    serve_type = serving_types[1]
+    serve_type = serving_types[2]
     test_hist = DeploySystem(
         serve_type,
         model_path,

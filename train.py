@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Apr  1 19:06:43 2020
-
-@author: danish
-"""
-
 import ModelWrapper as mp
 import tensorflow as tf
 from keras.callbacks import ModelCheckpoint, EarlyStopping
@@ -30,6 +23,7 @@ def main(config_gpu=True):
     if config_gpu:
         mp.TF_GPUsetup()
     data = glob.glob('Train_Data/*.npy')
+    print(data)
     history = []
     i = 1
     for name in data:
@@ -41,11 +35,11 @@ def main(config_gpu=True):
         X_train = mp.GetTrainData(name=name, re_shape=(-1, 227, 227, 10))
         print('Shape of X_train: {0}'.format(np.shape(X_train)))
         print('\n---------------- Building the Model! ----------------')
-        tf.reset_default_graph()
+        tf.compat.v1.reset_default_graph()
         model = mp.BuildModel(input_shape=(227, 227, 10, 1))
 
         ################## Training Model ####################
-        ckpt_name = file.split('.')[0]+'_Model.h5'
+        ckpt_name = file.split('.')[0]+'_Model.keras'
         hist_name = file.split('.')[0]+'_History'
         print('\n\n\t________________________________________________\n')
         print('\t\tModel Name: {0}'.format(ckpt_name))

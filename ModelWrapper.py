@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Apr  1 18:14:28 2020
-
-@author: danish
-"""
-
 from keras.layers import Conv3D, ConvLSTM2D, Conv3DTranspose, Input
 from keras.models import Model
 import tensorflow as tf
